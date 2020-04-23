@@ -61,6 +61,15 @@ class App
 
     public static function out_redirect($to)
     {
-        header('Location: ' . $to);
+        if (!headers_sent()){
+            header("Location: " . $to); exit;
+        } else {
+            echo '<script type="text/javascript">';
+            echo 'window.location.href="' . $to . '";';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="0;url=' . $to . '" />';
+            echo '</noscript>'; exit;
+        }
     }
 }
